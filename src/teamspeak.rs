@@ -1,7 +1,7 @@
-use anyhow::{Result, bail};
+use anyhow::{bail, Result};
 use futures::prelude::*;
 use tokio::time::{self, Duration};
-use tsclientlib::{Connection, OutCommandExt, StreamItem};
+use tsclientlib::{Connection, OutCommandExt, StreamItem, DisconnectOptions};
 
 pub async fn connect(address: String, password: String) -> Result<Connection> {
     let mut connection = Connection::build(address)
@@ -33,4 +33,9 @@ pub async fn connect(address: String, password: String) -> Result<Connection> {
     drop(events);
 
     Ok(connection)
+}
+
+pub async fn disconnect(connection: &mut Connection) {
+    connection.disconnect(DisconnectOptions::new()).unwrap();
+    connection.events().for_each(|_| future::ready(())).await;
 }
