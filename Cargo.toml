@@ -1,5 +1,5 @@
 [package]
-name = "ts3-who"
+name = "teamspeak-who"
 version = "1.0.0"
 description = "See who is online in an teamspeak server"
 edition = "2021"

@@ -1664,6 +1664,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "teamspeak-who"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "futures",
+ "serde",
+ "tokio",
+ "toml 0.8.8",
+ "tsclientlib",
+ "xdg",
+]
+
+[[package]]
 name = "tempfile"
 version = "3.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1954,19 +1967,6 @@ dependencies = [
  "tsproto-packets",
  "tsproto-structs",
  "tsproto-types",
-]
-
-[[package]]
-name = "ts3-who"
-version = "1.0.0"
-dependencies = [
- "anyhow",
- "futures",
- "serde",
- "tokio",
- "toml 0.8.8",
- "tsclientlib",
- "xdg",
 ]
 
 [[package]]
