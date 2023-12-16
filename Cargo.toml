@@ -13,6 +13,7 @@ tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 toml = "0.8"
 tsclientlib = { git = "https://github.com/ReSpeak/tsclientlib" }
+xdg = "2"
 
 [profile.release]
 lto = true
