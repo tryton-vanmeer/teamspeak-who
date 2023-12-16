@@ -1,0 +1,12 @@
+[package]
+name = "ts3-who"
+version = "0.1.0"
+description = "See who is online in an teamspeak server"
+edition = "2021"
+readme = "README.md"
+license-file = "LICENSE"
+
+[dependencies]
+
+[profile.release]
+lto = true
