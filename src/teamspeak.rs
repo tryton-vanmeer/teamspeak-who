@@ -1,14 +1,14 @@
 use anyhow::{bail, Result};
 use futures::prelude::*;
 use tokio::time::{self, Duration};
-use tsclientlib::{Connection, DisconnectOptions, OutCommandExt, StreamItem};
+use tsclientlib::{Connection, DisconnectOptions, OutCommandExt, StreamItem, data::Client};
 
-pub struct Client {
+pub struct WhoClient {
     connection: Connection,
 }
 
-impl Client {
-    pub async fn init(address: String, password: String) -> Result<Client> {
+impl WhoClient {
+    pub async fn init(address: String, password: String) -> Result<WhoClient> {
         let mut connection = Connection::build(address)
             .version(tsclientlib::Version::Linux_3_X_X)
             .password(password)
@@ -37,7 +37,7 @@ impl Client {
         };
         drop(events);
 
-        Ok(Client { connection })
+        Ok(WhoClient { connection })
     }
 
     pub async fn disconnect(&mut self) {
@@ -48,5 +48,9 @@ impl Client {
             .events()
             .for_each(|_| future::ready(()))
             .await;
+    }
+
+    pub fn get_clients(&self) -> Result<Vec<&Client>> {
+       Ok(self.connection.get_state()?.clients.values().clone().collect())
     }
 }

@@ -7,15 +7,13 @@ use anyhow::Result;
 async fn main() -> Result<()> {
     let config = config::load_config()?;
 
-    let mut client = teamspeak::Client::init(config.server, config.password).await?;
+    let mut who_client = teamspeak::WhoClient::init(config.server, config.password).await?;
 
-    // let state = connection.get_state()?;
+    for client in who_client.get_clients()? {
+        println!("{}", client.name);
+    }
 
-    // for client in state.clients.values() {
-    //     println!("{}", client.name);
-    // }
-
-    client.disconnect().await;
+    who_client.disconnect().await;
 
     Ok(())
 }
