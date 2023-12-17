@@ -7,6 +7,8 @@ use tsclientlib::{
     data::Client, ChannelId, Connection, DisconnectOptions, OutCommandExt, StreamItem,
 };
 
+const CLIENT_NAME: &str = "teamspeak-who";
+
 pub struct WhoClient {
     connection: Connection,
 }
@@ -16,7 +18,7 @@ impl WhoClient {
         let mut connection = Connection::build(address)
             .version(tsclientlib::Version::Linux_3_X_X)
             .password(password)
-            .name("teamspeak-who")
+            .name(CLIENT_NAME)
             .connect()?;
 
         connection
@@ -60,7 +62,7 @@ impl WhoClient {
             .get_state()?
             .clients
             .values()
-            .filter(|c| c.name != self.connection.get_options().get_name())
+            .filter(|c| c.name != CLIENT_NAME)
             .collect();
 
         clients.sort_by_key(|c| c.channel.0);
