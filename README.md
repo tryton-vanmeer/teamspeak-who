@@ -16,6 +16,5 @@ Ex. /home/username/.config/teamspeak-who/config.toml.
 
 ```toml
 server = "the address of the server"
-channel = "the name of the channel to check"
 password = "password to connect"
 ```
