@@ -51,6 +51,9 @@ impl WhoClient {
     }
 
     pub fn get_clients(&self) -> Result<Vec<&Client>> {
-       Ok(self.connection.get_state()?.clients.values().clone().collect())
+        let mut clients: Vec<_> = self.connection.get_state()?.clients.values().collect();
+        clients.sort_by_key(|c| c.channel.0);
+
+        Ok(clients)
     }
 }
