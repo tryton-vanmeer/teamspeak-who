@@ -11,22 +11,8 @@ async fn main() -> Result<()> {
 
     let state = connection.get_state()?;
 
-    let &channel = state
-        .channels
-        .iter()
-        .find_map(|(key, val)| {
-            if val.name == config.channel {
-                Some(key)
-            } else {
-                None
-            }
-        })
-        .unwrap();
-
     for client in state.clients.values() {
-        if client.channel == channel {
-            println!("{}", client.name);
-        }
+        println!("{}", client.name);
     }
 
     teamspeak::disconnect(&mut connection).await;

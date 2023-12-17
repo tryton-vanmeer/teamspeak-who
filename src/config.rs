@@ -6,7 +6,6 @@ use std::fs;
 pub struct Config {
     pub server: String,
     pub password: String,
-    pub channel: String,
 }
 
 fn get_config_file() -> Result<String> {
