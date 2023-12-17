@@ -1,7 +1,11 @@
+use std::collections::HashMap;
+
 use anyhow::{bail, Result};
 use futures::prelude::*;
 use tokio::time::{self, Duration};
-use tsclientlib::{Connection, DisconnectOptions, OutCommandExt, StreamItem, data::Client};
+use tsclientlib::{
+    data::Client, ChannelId, Connection, DisconnectOptions, OutCommandExt, StreamItem,
+};
 
 pub struct WhoClient {
     connection: Connection,
@@ -55,5 +59,16 @@ impl WhoClient {
         clients.sort_by_key(|c| c.channel.0);
 
         Ok(clients)
+    }
+
+    pub fn get_channel_names(&self) -> Result<HashMap<ChannelId, String>> {
+        Ok(self
+            .connection
+            .get_state()?
+            .channels
+            .clone()
+            .into_iter()
+            .map(|(id, channel)| (id, channel.name))
+            .collect())
     }
 }
